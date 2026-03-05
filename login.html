@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Futura Brokerage</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="asset/scripts/api.js"></script>
+</head>
+
+<body class="auth-body login-bg">
+    <div class="bg-blur primary" style="top: -100px; left: -100px;"></div>
+    <div class="bg-blur accent" style="bottom: -100px; right: -100px;"></div>
+
+    <div class="auth-container">
+        <div class="glass-card" style="padding: 40px;">
+            <div class="text-center mb-4">
+                <a href="index.html" class="logo mb-2" style="display: inline-block;">
+                    FUTURA<span>.IO</span>
+                </a>
+                <h3 class="mb-1">Welcome Back</h3>
+                <p class="text-muted" style="font-size: 0.9rem;">Sign in to continue to your dashboard</p>
+            </div>
+
+            <form action="dashboard/user/index.html">
+                <div class="form-group">
+                    <i class="fas fa-envelope form-icon"></i>
+                    <input type="text" class="form-control" id="id" placeholder="Email Address or Username" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock form-icon"></i>
+                    <input type="password" class="form-control" id="pass" placeholder="Password" required>
+                </div>
+
+                <div class="d-flex justify-between align-center mb-3" style="font-size: 0.9rem;">
+                    <label
+                        style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--color-text-muted);">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="forgot-password.html" class="text-primary">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-4">
+                    Log In <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                </button>
+
+                <div class="text-center text-muted mb-4" style="font-size: 0.9rem; position: relative;">
+                    <span style="background: rgba(20,20,25,0.8); padding: 0 10px; position: relative; z-index: 1;">Or
+                        continue with</span>
+                    <div
+                        style="position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: var(--border-color);">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                    <div class="social-btn"><i class="fab fa-google"></i> Google</div>
+                    <div class="social-btn"><i class="fab fa-apple"></i> Apple</div>
+                </div>
+
+                <div class="text-center text-muted" style="font-size: 0.9rem;">
+                    Don't have an account? <a href="register.html" class="text-primary" style="font-weight: 600;">Sign
+                        Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="asset/scripts/main.js"></script>
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.querySelector('#id').value;
+            const password = document.querySelector('#pass').value;
+            Auth.login(username, password);
+        });
+    </script>
+</body>
+
+</html>

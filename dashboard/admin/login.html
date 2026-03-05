@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Futura Brokerage</title>
+    <link rel="stylesheet" href="../../asset/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --admin-primary: #7000ff;
+            --admin-accent: #ff007a;
+            --admin-bg: #030305;
+        }
+
+        body {
+            background-color: var(--admin-bg) !important;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Ambient Background */
+        .ambient-light {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 150vw;
+            height: 150vh;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.15), transparent 60%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+            animation: pulseLight 10s infinite alternate;
+        }
+
+        @keyframes pulseLight {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        /* Glass Card Override */
+        .glass-card {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(112, 0, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Admin Neon Border Animation */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--admin-primary), var(--admin-accent), transparent);
+            animation: borderSlide 3s infinite linear;
+        }
+
+        @keyframes borderSlide {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Typography */
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-icon {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-icon:focus-within {
+            border-color: var(--admin-accent);
+            box-shadow: 0 0 15px rgba(255, 0, 122, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .input-icon i {
+            color: var(--admin-primary);
+        }
+
+        .input-icon input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            font-family: inherit;
+        }
+
+        /* Button */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--admin-primary), var(--admin-accent));
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.2s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--admin-accent), var(--admin-primary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
+        }
+
+        .btn-primary:hover::after {
+            opacity: 1;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                font-size: 1.5rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-light"></div>
+
+    <!-- Particles handled by main.js logic if desired, or simple CSS blobs -->
+    <div class="blob blob-1" style="background: var(--admin-primary); opacity: 0.3;"></div>
+    <div class="blob blob-2" style="background: var(--admin-accent); opacity: 0.2;"></div>
+
+    <div class="auth-container">
+        <div class="auth-box glass-card">
+            <div class="text-center mb-5">
+                <a href="../../index.html" class="logo"
+                    style="font-size: 1.8rem; justify-content: center; margin-bottom: 20px; text-decoration: none;">
+                    FUTURA<span style="color: var(--admin-accent);">.ADMIN</span>
+                </a>
+                <h2 style="margin-bottom: 10px; font-size: 1.5rem;">System Access</h2>
+                <p class="text-muted" style="font-size: 0.9rem;">Restricted Personnel Only</p>
+            </div>
+
+            <form id="adminLoginForm" onsubmit="event.preventDefault(); handleAdminLogin();">
+                <div class="form-group mb-4">
+                    <label style="font-size: 0.85rem; color: #aaa; margin-bottom: 8px; display: block;">Administrator
+                        ID</label>
+                    <div class="input-icon">
+                        <i class="fas fa-fingerprint"></i>
+                        <input type="text" id="username" placeholder="Enter ID or Username" required
+                            style="color: #fff;">
+                    </div>
+                </div>
+
+                <div class="form-group mb-5">
+                    <label style="font-size: 0.85rem; color: #aaa; margin-bottom: 8px; display: block;">Secure
+                        Key</label>
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="password" placeholder="Enter Secure Key" required
+                            style="color: #fff;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" style="padding: 12px; border-radius: 8px;">
+                    AUTHENTICATE
+                </button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="../../index.html" class="text-muted"
+                    style="font-size: 0.8rem; text-decoration: none; opacity: 0.6; transition: opacity 0.2s;">
+                    <i class="fas fa-arrow-left"></i> Return to Public Site
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container"></div>
+
+    <script src="../../asset/scripts/api.js"></script>
+    <script src="../../asset/scripts/main.js"></script>
+    <script>
+        function handleAdminLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Animation Feedback
+            const btn = document.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> VERIFYING...';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                Auth.loginAdmin(username, password);
+                // Reset on failure (success redirects)
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.opacity = '1';
+                }, 2000);
+            }, 600);
+        }
+    </script>
+</body>
+
+</html>
