@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Futura Brokerage</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="asset/scripts/api.js"></script>
+</head>
+
+<body class="auth-body register-bg">
+    <div class="auth-container">
+        <div class="glass-card" style="padding: 40px;">
+            <div class="text-center mb-4">
+                <a href="index.html" class="logo mb-2" style="display: inline-block;">
+                    FUTURA<span>.IO</span>
+                </a>
+                <h3 class="mb-1">Create Account</h3>
+                <p class="text-muted" style="font-size: 0.9rem;">Join thousands of investors today</p>
+            </div>
+
+            <form action="dashboard/user/index.html">
+                <div class="form-group">
+                    <i class="fas fa-user form-icon"></i>
+                    <input type="text" class="form-control" placeholder="Full Name" id="fullname" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-user form-icon"></i>
+                    <input type="text" class="form-control" placeholder="Username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-envelope form-icon"></i>
+                    <input type="email" class="form-control" placeholder="Email Address" id="email" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock form-icon"></i>
+                    <input type="password" class="form-control" placeholder="Password" id="pass" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock form-icon"></i>
+                    <input type="password" class="form-control" placeholder="Confirm Password" id="confirmpass"
+                        required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-user-plus form-icon"></i>
+                    <input type="text" class="form-control" placeholder="Referral ID (Optional)" id="referrer_id">
+                </div>
+
+                <div class="mb-3">
+                    <label
+                        style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--color-text-muted); font-size: 0.9rem;">
+                        <input type="checkbox" required> I agree to the <a href="#" class="text-primary">Terms of
+                            Service</a> & <a href="#" class="text-primary">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-4">
+                    Create Account
+                </button>
+
+                <div class="text-center text-muted" style="font-size: 0.9rem;">
+                    Already have an account? <a href="login.html" class="text-primary" style="font-weight: 600;">Log
+                        In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="asset/scripts/main.js"></script>
+    <script>
+        // Auto-capture referral ID from URL
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref');
+            if (ref) {
+                document.querySelector('#referrer_id').value = ref;
+                // Optionally hide the group if pre-filled
+                // document.querySelector('#referrer_id').closest('.form-group').style.display = 'none';
+            }
+        };
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.querySelector('#username').value;
+            const email = document.querySelector('#email').value;
+            const fullname = document.querySelector('#fullname').value;
+            const password = document.querySelector('#pass').value;
+            const confirmpassword = document.querySelector('#confirmpass').value;
+            const referrer_id = document.querySelector('#referrer_id').value;
+            Auth.register({ username, fullname, password, confirmpassword, email, referrer_id });
+        });
+    </script>
+</body>
+
+</html>
